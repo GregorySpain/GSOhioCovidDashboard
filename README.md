@@ -1,3 +1,8 @@
+## Ohio Covid Dashboard
+This is a project for WDD 3400 at Clark State College in
+Springfield, OH. The data is pulled from the
+CovidActNow API.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
