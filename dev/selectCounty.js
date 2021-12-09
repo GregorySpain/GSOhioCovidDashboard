@@ -1,57 +1,41 @@
+import DropdownMenu from "react-bootstrap/DropdownMenu";
 import React from "react";
-import GetMainData from "./GetMainData";
-class CountyPicker extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            counties: [
-                {
-                    county: 'adams',
-                    fips: '39001',
-                },
-                {
-                    county: 'allen',
-                    fips: '39003',
-                }
-            ],
-            value: 'all',
-            countyData: []
-        };
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import DropdownItem from "react-bootstrap/DropdownItem";
+import GetCountyData from "./GetCountyData";
 
-        this.handleChange = this.handleChange.bind(this);
-    }
+
+
+function CountyPicker() {
+    const [error, setError] = React.useState(null);
+    const [isLoaded, setIsLoaded] = React.useState(false);
+    const [county, setCounty] = React.useState(0);
     
-
-    handleChange(event) {
-        this.setState({value: event.target.value});
+    function handleChange(eventKey) {
+        console.log(eventKey);
+        <GetCountyData county={eventKey} />
     }
 
-    
-    render() {
-        const { error, counties, value } = this.state;
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    } else {
+        return (
+        
+        <><DropdownButton
+            id="dropdown-menu-align-end"
+            title="Choose a County"
+            onSelect={(eventKey) => {
+                
+                handleChange(eventKey);
+            }}
+        >
+            <DropdownItem eventKey="0">Adams</DropdownItem>
+            <DropdownItem eventKey="1">Allen</DropdownItem>
+            
+        </DropdownButton>
+        <GetCountyData county={county} /></>
+    )};
+};
 
-        if (error) {
-            return <div>Error: {error.message}</div>;
-          } else {
-            return (
-            <div>
-                <form>
-                    <label>
-                        Choose a county:
-                    </label>
-                    <select value={value} onChange={this.handleChange}>
-                        <option value='all'>All</option>
-                        {counties.map(item => (
-                        <option key={item.county} value={item.fips}>
-                            {item.county}
-                            </option>
-                        ))}
-                    </select>
-                </form>
-                <GetMainData county={this.state.value} />
-            </div>
-        )}
-    }
-}
+
 export default CountyPicker;
